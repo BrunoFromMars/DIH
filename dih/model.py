@@ -6,7 +6,7 @@ Created on Sat Sep 29 09:27:04 2018
 @author: jayesh
 """
 
-#__________________________
+#____________________________________________________________________________________________________________________________
 #importing libraries
 import pandas as pd
 import numpy as np
@@ -18,7 +18,7 @@ from keras.layers import Dense
 from keras.layers import LSTM
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error
-#__________________________
+#____________________________________________________________________________________________________________________________
 #importing data
 data = pd.read_csv('diseases.csv')
 split_date = datetime.datetime(2017, 11, 1)
@@ -33,13 +33,13 @@ m,n  = data.shape
 
 
 for i in range(n):
-#__________________________
+#___________________________________________________________________________________________________________________________
 #splitting data
     df = data.iloc[:,i:i+1]
     #split_date = datetime.datetime(2017, 11, 1)
     train = df[df.index < split_date]
     test = df[df.index > split_date]
-#__________________________
+#___________________________________________________________________________________________________________________________
 #Scaling data
     sc = MinMaxScaler()
     train_sc = sc.fit_transform(train)
@@ -56,7 +56,7 @@ for i in range(n):
     X_train = np.reshape(X_train,(m,n,1))
     m,n = X_test.shape
     X_test = np.reshape(X_test,(m,n,1))
-#__________________________
+#____________________________________________________________________________________________________________________________
 #Training the model  
     model = Sequential()
     model.add(LSTM(12,input_shape=(None,1),activation='relu'))
@@ -72,7 +72,7 @@ for i in range(n):
     
     y_pred = pd.DataFrame(y_pred)
     y_pred.columns = train.columns
-#__________________________
+#____________________________________________________________________________________________________________________________
 # Calulating error
     rmse = math.sqrt(mean_squared_error(y,y_pred))
 
